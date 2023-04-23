@@ -17,7 +17,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final speechToText = SpeechToText();
   final flutterTts = FlutterTts();
-
   String lastWords = '';
   final OpenAIService openAIService = OpenAIService();
   String? generatedContent;
@@ -113,10 +112,12 @@ class _HomePageState extends State<HomePage> {
             ),
             FadeInRight(
               child: Visibility(
-                visible: generatedImageUrl == null && generatedContent == null,
+                visible: generatedImageUrl == null,
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 05),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 05,
+                  ),
                   margin: const EdgeInsets.symmetric(horizontal: 40)
                       .copyWith(top: 01),
                   decoration: BoxDecoration(
@@ -127,12 +128,14 @@ class _HomePageState extends State<HomePage> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
-                      generatedContent ??
-                          "Good Morning, what task can I do for you?",
+                      generatedContent == null
+                          ? 'Good Morning, what task can I do for you?'
+                          : generatedContent!,
                       style: TextStyle(
-                          color: Pallete.mainFontColor,
-                          fontSize: generatedContent == null ? 20 : 18,
-                          fontFamily: 'Cera-Pro'),
+                        fontFamily: 'Cera Pro',
+                        color: Pallete.mainFontColor,
+                        fontSize: generatedContent == null ? 20 : 18,
+                      ),
                     ),
                   ),
                 ),
@@ -142,7 +145,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(20),
                   child: Image.network(generatedImageUrl!),
                 ),
               ),
