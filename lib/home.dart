@@ -127,9 +127,8 @@ class _HomePageState extends State<HomePage> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
-                      generatedContent == null
-                          ? "Good Morning, what task can I do for you?"
-                          : generatedContent!,
+                      generatedContent ??
+                          "Good Morning, what task can I do for you?",
                       style: TextStyle(
                           color: Pallete.mainFontColor,
                           fontSize: generatedContent == null ? 20 : 18,
@@ -139,12 +138,13 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            if (generatedImageUrl! == null)
+            if (generatedImageUrl != null)
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(generatedImageUrl!)),
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(generatedImageUrl!),
+                ),
               ),
             SlideInLeft(
               child: Visibility(
